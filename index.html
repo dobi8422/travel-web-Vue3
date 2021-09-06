@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>travel_web</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<body style="background: rgb(253, 249, 230);">
+  <div id="app">
+    <header class="d-flex flex-column align-items-center" style="background-repeat:no-repeat; background-size:cover; background-position:center; height: 300px;">
+      <h1 class="text-light mt-5 rounded-3" style="background: rgba(122, 85, 255, 0.4);">高雄旅遊資訊網</h1>
+      <select class="select_data mt-5 text-center rounded-3" style="width: 300px" v-model="currentLocation">
+        <option value="--請選擇地區--" disabled selected>--請選擇地區--</option>
+        <option value="">所有地區</option>
+        <option :value="location" v-for="location in locations">{{ location }}</option>
+      </select>
+      <div class="bg-light p-3 mt-5 border rounded-3">
+        <h2 class="ms-3 text-dark fs-4 fw-bold">熱門行政區</h2>
+        <div class="button_group d-flex flex-row justify-content-around">
+          <button type="button" class="btn btn-success me-3 px-1 px-sm-3 px-md-5" @click="currentLocation = '苓雅區'">苓雅區</button>
+          <button type="button" class="btn btn-success me-3 px-1 px-sm-3 px-md-5" @click="currentLocation = '大樹區'">大樹區</button>
+          <button type="button" class="btn btn-success me-3 px-1 px-sm-3 px-md-5" @click="currentLocation = '左營區'">左營區</button>
+          <button type="button" class="btn btn-success me-3 px-1 px-sm-3 px-md-5" @click="currentLocation = '甲仙區'">甲仙區</button>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4 m-5">
+        <div class="col" style="height: 400px;" v-for="item in filterData[currentPage]">
+          <div class="card">
+            <div class="card-img-top Picture" :style="{ backgroundImage: `url(${item.Picture1})` }" style="background-repeat:no-repeat; background-size:cover; background-position: center; height: 200px;">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title position-absolute fs-4 text-light" style="top: 170px;">{{ item.Name }}</h5>
+              <h5 class="card-opentime"><i class="far fa-clock me-1"></i>{{ item.Opentime }}</h5>
+              <h5 class="card-address"><i class="far fa-map-marker-alt me-2"></i>{{ item.Add }}</h5>
+              <h5 class="card-tel"><i class="far fa-phone-volume me-1"></i>{{ item.Tel }}</h5>
+              <p class="card-text">{{ item.Ticketinfo }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="my-5" aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" :class="{'disabled' : currentPage == 0}">
+            <a class="page-link" href="#" @click.prevent="currentPage == 0 ? currentPage == 0 : currentPage--"><<</a>
+          </li>
+          <li class="page-item" v-for="page in pages" :class="{active: currentPage === page - 1}">
+            <a class="page-link" href="#" @click.prevent="currentPage = (page - 1)">{{ page }}</a>
+          </li>
+          <li class="page-item" :class="{'disabled' : currentPage == pages-1}">
+            <a class="page-link" href="#" @click.prevent="currentPage == pages-1 ? currentPage == pages-1 : currentPage++">>></a>
+          </li>
+          <select class="ms-3 text-center" v-model="pagination">
+            <option value="3">3</option>
+            <option value="6">6</option>
+            <option value="12">12</option>
+            <option value="24">24</option>
+            <option value="48">48</option>
+          </select>
+        </ul>
+      </nav>
+    </section>
+
+    <footer class="w-100 bg-secondary text-light">
+      <div class="text-center">©2018 高雄旅遊網<br>資料來源：高雄市政府</div>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="script.js"></script>
+  
+</body>
+</html>

@@ -1,0 +1,16 @@
+header{
+  background: url(head_Img.png) center;
+}
+
+.card:hover, .Picture:hover{
+  box-shadow: 1px 1px 5px rgb(0, 122, 61);
+}
+.Picture::before{
+  content:"";
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(0deg,rgba(0, 0, 0, 0.9),rgba(0, 0, 0, 0));
+  position: absolute;
+  left: 0;
+  top: 150px;
+}
