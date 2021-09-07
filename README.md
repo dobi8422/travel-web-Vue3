@@ -1,3 +1,4 @@
+(六角學院教學內容)
 # 旅遊網
 資料：
 * JSON(https://raw.githubusercontent.com/hexschool/KCGTravel/master/datastore_search.json)
@@ -8,4 +9,4 @@
 * 分頁
 ---
 連結：
-待加上...
+https://dobi8422.github.io/travel-web-Vue3/
